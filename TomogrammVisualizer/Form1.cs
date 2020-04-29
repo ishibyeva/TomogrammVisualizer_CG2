@@ -41,19 +41,7 @@ namespace TomogrammVisualizer
         {
             if (loaded)
             {
-                if (radioButton1.Checked)
-                    view.DrawQuads(currentLayer);
-                else
-                {
-                    if (needReload)
-                    {
-
-                        view.generateTextureImage(currentLayer);
-                        view.Load2DTexture();
-                        needReload = false;
-                    }
-                    view.DrawTexture();
-                }
+                view.DrawQuads(currentLayer);
                 glControl1.SwapBuffers();
             }
         }
@@ -66,6 +54,23 @@ namespace TomogrammVisualizer
             currentLayer = trackBar1.Value;
             needReload = true;
         }
+        //
+        //действия при прокрутке трекбаров и перезагрузка
+        //
+        private void trackBar2_Scroll(object sender, EventArgs e)
+        {
+            view.minimum = trackBar2.Value;
+            needReload = true;
+
+        }
+        private void trackBar3_Scroll(object sender, EventArgs e)
+        {
+            view.TFwidth = trackBar3.Value;
+            needReload = true;
+        }
+        //
+        //конец изменений
+        //
 
         void Application_Idle(object sender, EventArgs e)
         {
@@ -94,20 +99,6 @@ namespace TomogrammVisualizer
             FrameCount++;
         }
 
-        //
-        //действия при прокрутке трекбаров и перезагрузка
-        //
-        private void trackBar3_Scroll(object sender, EventArgs e)
-        {
-            view.TFwidth = trackBar3.Value;
-            needReload = true;
-        }
-
-        private void trackBar2_Scroll(object sender, EventArgs e)
-        {
-            view.minimum = trackBar2.Value;
-            needReload = true;
-
-        }
+        
     }
 }
